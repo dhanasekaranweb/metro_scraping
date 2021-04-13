@@ -30,6 +30,19 @@ def home():
 	temp["data"] = result
 	return render_template('index.html', data=temp)
 
+@app.route("/scrapped_datas", methods=['GET'])
+def scrapped_datas():
+	yesterday 	= datetime.now() - timedelta(1)
+	_date 		= datetime.strftime(yesterday, '%Y-%m-%d')
+	sql = "select * from `sea_level`";
+	cursor = connection.cursor()
+	cursor.execute(sql)
+	result = cursor.fetchall()
+	temp = {}
+	temp["date"] = _date
+	temp["data"] = result
+	return render_template('scrapped_datas.html', data=temp)
+
 @app.route('/', methods=['POST'])
 def test():
 	text = request.form['text']
