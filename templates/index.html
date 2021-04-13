@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Metro water level checking</title>
+<style>
+table, td, th {  
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 15px;
+}
+.form_input{
+
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+	<div class="heading">
+		<div style="text-align: center;"><p style="font-size: 18px;font-weight: bold;">Lake Storage As On {{data.date}}</p></div>
+		<div style="text-align: center;"><p style="font-size: 18px;font-weight: bold;">With Reference to Mean Sea Level</p></div>
+	</div>
+	<table style="margin-top: 20px">
+	    <tr>
+	        <th>RESERVOIR</th>
+	        <th>Full Tank Level (ft.)</th>
+	        <th>Full Capacity (mcft)</th>
+	        <th>Level (ft)</th>
+	        <th>Storage (Mcft)</th>
+	        <th>Inflow  (cusecs)</th>
+	        <th>Outflow (cusecs)</th>
+	        <th>Rainfall (mm)</th>
+	        <th>Storage as on same day last year (mcft)</th>
+	    </tr>
+	    {% for item in data.data %}
+		  <tr>
+		    <td>{{item.reservoir}}</td>
+		    <td>{{item.full_tank}}</td>
+		    <td>{{item.full_capacity}}</td>
+		    <td>{{item.level}}</td>
+		    <td>{{item.storage}}</td>
+		    <td>{{item.inflow}}</td>
+		    <td>{{item.outflow}}</td>
+		    <td>{{item.rainfall}}</td>
+		    <td>{{item.last_year_storage}}</td>
+		  </tr>
+		{% endfor %}
+	</table>
+
+	{% if data.error %}
+		<h2 style="color: red">{{data.error}}</h2>
+	{% endif %}
+	<div class="form_input">
+		<h2>scrap here</h2>
+		<form method="POST">
+		    <input name="text" placeholder="dd/mm/yyyy">
+		    <input type="submit">
+		</form>
+	</div>
+</div>
+</body>
+</html>
